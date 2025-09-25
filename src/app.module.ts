@@ -36,7 +36,7 @@ import { OrdersModule } from './orders/orders.module';
             type: 'postgres',
             url: process.env.DATABASE_URL,
             autoLoadEntities: true,
-            synchronize: false,
+            synchronize: true,
           };
         } else {
           return {
