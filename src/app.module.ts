@@ -29,15 +29,28 @@ import { OrdersModule } from './orders/orders.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '9530',
-      database: 'gravixel_attires',
-  entities: [User, Address, Product, Order],
-      synchronize: true,
+    TypeOrmModule.forRootAsync({
+      useFactory: () => {
+        if (process.env.DATABASE_URL) {
+          return {
+            type: 'postgres',
+            url: process.env.DATABASE_URL,
+            autoLoadEntities: true,
+            synchronize: false,
+          };
+        } else {
+          return {
+            type: 'postgres',
+            host: 'localhost',
+            port: 5432,
+            username: 'postgres',
+            password: '9530',
+            database: 'gravixel_attires',
+            autoLoadEntities: true,
+            synchronize: true,
+          };
+        }
+      },
     }),
     AuthModule,
     UsersModule,
