@@ -7,8 +7,8 @@ export class MailService {
   private transporter: any;
 
   constructor(private configService: ConfigService) {
-    const host = this.configService.get<string>('SMTP_HOST') || 'smtp.example.com';
-    const port = Number(this.configService.get<number>('SMTP_PORT') ?? 587);
+    const host = this.configService.get<string>('SMTP_HOST') || 'smtp.gmail.com';
+    const port = Number(this.configService.get<number>('SMTP_PORT') ?? 465);
     const secureEnv = this.configService.get<string>('SMTP_SECURE');
     const secure = secureEnv ? secureEnv === 'true' : false;
     const user = this.configService.get<string>('SMTP_USER');
